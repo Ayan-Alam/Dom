@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
         myElement1[i].style.fontWeight = 'bold';
     }
     myElement1[2].style.backgroundColor = 'green';
+    var myElement2 = document.getElementsByTagName('li');
+    myElement2[4].style.backgroundColor = "grey"; 
   });
 
    
