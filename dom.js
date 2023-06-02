@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var myElement = document.getElementById('main-header');
+   /* var myElement = document.getElementById('main-header');
     myElement.style.borderBottom = "solid 3px #000";
     var myElement1 = document.getElementsByClassName('list-group-item');
     for(var i=0;i<4;i++){
@@ -33,7 +33,57 @@ document.addEventListener('DOMContentLoaded', function() {
     var head = document.querySelector('#head');
     var newel = document.createElement('p');
     newel.appendChild(someText);
-    head.appendChild(newel);
+    head.appendChild(newel);*/
+    var form = document.getElementById('addForm');
+    var itemList = document.getElementById('items');
+    var filter = document.getElementById('filter');
+    form.addEventListener('submit', addItem);
+    itemList.addEventListener('click', removeItem);
+    filter.addEventListener('keyup', filterItems);
+
+function addItem(e){
+  e.preventDefault();
+  var newItem = document.getElementById('item').value;
+  var li = document.createElement('li');
+  li.className = 'list-group-item';
+  li.appendChild(document.createTextNode(newItem));
+  var deleteBtn = document.createElement('button');
+  deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+  deleteBtn.appendChild(document.createTextNode('X'));
+  li.appendChild(deleteBtn);
+  itemList.appendChild(li);
+  let editButton = document.createElement('button');
+  editButton.className = 'btn btn-secondary float-right btn-sm mx-3 px-3';
+  editButton.appendChild(document.createTextNode('Edit'));
+  li.appendChild(editButton);
+}
+
+// Remove item
+function removeItem(e){
+  if(e.target.classList.contains('delete')){
+    if(confirm('Are You Sure?')){
+      var li = e.target.parentElement;
+      itemList.removeChild(li);
+    }
+  }
+}
+
+// Filter Items
+function filterItems(e){
+  // convert text to lowercase
+  var text = e.target.value.toLowerCase();
+  // Get lis
+  var items = itemList.getElementsByTagName('li');
+  // Convert to an array
+  Array.from(items).forEach(function(item){
+    var itemName = item.firstChild.textContent;
+    if(itemName.toLowerCase().indexOf(text) != -1){
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
   });
 
    
